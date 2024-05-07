@@ -1,17 +1,16 @@
-function combinationSum3(k, n) {
-  const result = [];
-  backtrack([], 1, k, n);
-  return result;
-  function backtrack(combination, start, k, n) {
-    if (n === 0 && k === 0) {
-      result.push([...combination]);
-      return;
+function numDecodings(s) {
+  const dp = new Array(s.length + 1).fill(0);
+  dp[0] = 1;
+  dp[1] = s[0] === "0" ? 0 : 1;
+  for (let i = 2; i <= s.length; i++) {
+    const oneDigit = parseInt(s.substring(i - 1, i));
+    const twoDigits = parseInt(s.substring(i - 2, i));
+    if (oneDigit >= 1) {
+      dp[i] += dp[i - 1];
     }
-    if (n < 0 || k === 0) return;
-    for (let i = start; i <= 9; i++) {
-      combination.push(i);
-      backtrack(combination, i + 1, k - 1, n - i);
-      combination.pop();
+    if (twoDigits >= 10 && twoDigits <= 26) {
+      dp[i] += dp[i - 2];
     }
   }
+  return dp[s.length];
 }
