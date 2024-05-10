@@ -1,17 +1,8 @@
-function serialize(root) {
-  const result = [];
-  const queue = [root];
-  while (queue.length) {
-    const node = queue.shift();
-    if (node) {
-      result.push(node.val);
-      queue.push(node.left, node.right);
-    } else {
-      result.push(null);
-    }
-  }
-  while (result[result.length - 1] === null) {
-    result.pop();
-  }
-  return result;
+function sortedArrayToBST(nums) {
+  if (!nums.length) return null;
+  const mid = Math.floor(nums.length / 2);
+  const root = new TreeNode(nums[mid]);
+  root.left = sortedArrayToBST(nums.slice(0, mid));
+  root.right = sortedArrayToBST(nums.slice(mid + 1));
+  return root;
 }
